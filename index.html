@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mis 15 Años: Génesis Milena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .font-aurora { font-family: 'Pinyon Script', cursive; }
+        .font-body { font-family: 'Quicksand', sans-serif; }
+        
+        body {
+            background: linear-gradient(rgba(255, 255, 255, 0.60), rgba(255, 255, 255, 0.92)), 
+                        url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1920');
+            background-size: cover; 
+            background-attachment: fixed; 
+            background-position: center;
+        }
+
+        /* --- CARRUSEL: DISEÑO ORIGINAL CON CENTRADO --- */
+        .carrusel-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 15px 0;
+            scrollbar-width: none;
+            scroll-snap-type: x mandatory; 
+        }
+        .carrusel-container::-webkit-scrollbar { display: none; }
+
+        .card-special {
+            min-width: 260px;
+            height: 380px;
+            margin: 0 10px;
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            background: white;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            background-image: url('https://www.transparentpng.com/download/floral/pink-flowers-border-png-3.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 6px;
+            scroll-snap-align: center; 
+        }
+
+        .card-special img {
+            width: 100%; height: 100%; object-fit: cover;
+            border-radius: 6px; cursor: pointer; display: block;
+        }
+
+        .img-grid {
+            width: 100%; height: 280px; object-fit: cover;
+            cursor: pointer; transition: opacity 0.3s ease;
+        }
+
+        /* --- NAVEGACIÓN --- */
+        .nav-link {
+            font-size: 11px; font-weight: bold; letter-spacing: 0.1em;
+            text-transform: uppercase; color: #1a2e23; white-space: nowrap;
+            padding: 8px 14px; border-bottom: 2px solid transparent;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .nav-link.active { 
+            color: white;
+            background: #b66481;
+            border-bottom: 2px solid #d4af37; 
+        }
+
+        /* --- VISOR: CENTRADO, SWIPE Y BOTONES PEQUEÑOS --- */
+        #viewer { 
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); 
+            z-index: 100; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer; touch-action: pan-y;
+        }
+
+        #viewer-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 75vh;
+        }
+
+        #viewer-img {
+            max-width: 85vw;
+            max-height: 70vh;
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            object-fit: contain;
+            cursor: default;
+            user-select: none;
+        }
+
+        .viewer-btn {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: 0.3s;
+            z-index: 110;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .viewer-btn:hover { background: rgba(255,255,255,0.3); }
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+
+        #download-link {
+            background: #b06d85;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 99px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #download-link:hover { background: #d4af37; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="font-body min-h-screen text-[#1a2e23] pb-10">
+
+    <header class="pt-6 pb-2 text-center px-6">
+        <h1 class="text-5xl md:text-7xl font-aurora text-[#0f1a14] mb-1">Génesis Milena</h1>
+        <div class="mb-6 inline-flex items-center gap-3 bg-white/80 px-8 py-1 rounded-full border border-[#d4af37]/30 shadow-sm">
+            <span class="text-[#b66481] text-xl">❤</span>
+            <p class="text-[26px] font-aurora text-black leading-none pt-1">Mis Quince Años</p>
+            <span class="text-[#b66481] text-xl">❤</span>
+        </div>
+    </header>
+
+    <section class="max-w-6xl mx-auto mb-8">
+        <h2 class="text-center font-aurora text-5xl text-[#b06d85] mb-2" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Momentos Especiales</h2>
+        <div class="relative px-12">
+            <button onclick="scrollCarrusel(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg text-[#b06d85] border border-gray-100">❮</button>
+            <div id="carrusel-especial" class="carrusel-container"></div>
+            <button onclick="scrollCarrusel(1)" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg text-[#b06d85] border border-gray-100">❯</button>
+        </div>
+    </section>
+
+    <nav class="flex justify-center gap-2 mb-6 overflow-x-auto px-4">
+        <div class="nav-link active" onclick="switchTab('galeria', this)">Galería Completa</div>
+        <div class="nav-link" onclick="switchTab('sesion', this)">Sesión de Fotos</div>
+        <div class="nav-link" onclick="switchTab('grupales', this)">Fotos Grupales</div>
+        <div class="nav-link" onclick="switchTab('videos', this)">Videos</div>
+    </nav>
+
+    <main id="tab-galeria" class="tab-content active">
+        <section class="max-w-[1100px] mx-auto px-2">
+            <div id="grid-galeria" class="grid grid-cols-2 lg:grid-cols-3 gap-1"></div>
+        </section>
+    </main>
+
+    <main id="tab-sesion" class="tab-content">
+        <section class="max-w-[1100px] mx-auto px-2">
+            <div id="grid-sesion" class="grid grid-cols-2 lg:grid-cols-3 gap-1"></div>
+        </section>
+    </main>
+
+    <main id="tab-grupales" class="tab-content">
+        <section class="max-w-[1100px] mx-auto px-2">
+            <div id="grid-grupales" class="grid grid-cols-2 lg:grid-cols-3 gap-1"></div>
+        </section>
+    </main>
+
+    <main id="tab-videos" class="tab-content">
+        <section class="max-w-[800px] mx-auto px-6">
+            <div class="aspect-video bg-black rounded shadow-2xl overflow-hidden mb-6">
+                <video class="w-full h-full" controls>
+                    <source src="Video Project.mp4" type="video/mp4">
+                    <source src="WhatsApp Video 2026-04-08 at 16.24.12.mp4" type="video/mp4">
+                    <source src="WhatsApp Video 2026-04-08 at 16.41.22.mp4" type="video/mp4">
+                    <source src="WhatsApp Video 2026-04-08 at 16 (online-video-cutter.com).mp4" type="video/mp4">
+                    Videos de la Fiesta
+                </video>
+            </div>
+        </section>
+    </main>
+
+    <div id="viewer" onclick="closeViewerFromBackground(event)">
+        <button onclick="closeViewer()" class="absolute top-4 right-6 text-white text-4xl z-[120]">&times;</button>
+        <div id="viewer-container">
+            <button onclick="changeImage(-1); event.stopPropagation();" class="viewer-btn prev-btn">❮</button>
+            <img id="viewer-img" src="" onclick="event.stopPropagation()">
+            <button onclick="changeImage(1); event.stopPropagation();" class="viewer-btn next-btn">❯</button>
+        </div>
+        <a id="download-link" href="#" download onclick="event.stopPropagation();">Descargar Foto</a>
+    </div>
+
+    <script>
+        // MANTENEMOS TUS LISTAS DE FOTOS INTACTAS
+        const fotos_especiales = ["Gemini_Generated_Image_aq2yabaq2yabaq2y.png", "Gemini_Generated_Image_iuuzpxiuuzpxiuuz.png", "Imagen2.jpg", "Imagen3.jpg", "Imagen5.jpg", "Imagen6.jpg"];
+        const fotos_sesion = ["DSC00369.JPG","Gemini_Generated_Image_aq2yabaq2yabaq2y.png","Gemini_Generated_Image_iuuzpxiuuzpxiuuz.png","Imagen2.jpg","Imagen3.jpg","Imagen5.jpg","Imagen6.jpg","Imagen7.jpg","DSC00699.JPG","DSC00710.JPG", "DSC00866.JPG", "DSC01009.JPG", "DSC01011.JPG", "DSC01015.JPG", "DSC01016.JPG","DSC01016.JPG","DSC01020.JPG", "DSC01038.JPG","DSC01053.JPG","DSC01065.JPG","DSC01140.JPG","DSC01143.JPG","DSC01144.JPG"];
+        const fotos_grupales = ["DSC01153.JPG","DSC00763.JPG","DSC00766.JPG","DSC00767.JPG","DSC00769.JPG","DSC00774.JPG","DSC00780.JPG","DSC00792.JPG","DSC00799.JPG","DSC00801.JPG","DSC00802.JPG", "DSC00804.JPG", "DSC00818.JPG", "DSC00824.JPG", "DSC00826.JPG", "DSC00829.JPG", "DSC00833.JPG", "DSC00835.JPG","DSC00836.JPG","DSC00845.JPG","DSC00851.JPG","DSC00853.JPG","DSC00863.JPG","DSC00867.JPG","DSC00873.JPG","DSC00877.JPG","DSC00879.JPG","DSC00881.JPG", "DSC00886.JPG", "DSC00892.JPG", "DSC00897.JPG", "DSC00900.JPG", "DSC00903.JPG", "DSC00906.JPG", "DSC00909.JPG", "DSC00913.JPG", "DSC00914.JPG","DSC00917.JPG", "DSC00919.JPG", "DSC00922.JPG", "DSC00932.JPG", "DSC00937.JPG", "DSC00940.JPG", "DSC00943.JPG", "DSC00945.JPG", "DSC00948.JPG", "DSC00951.JPG", "DSC00952.JPG", "DSC00954.JPG", "DSC00958.JPG", "DSC00962.JPG", "DSC00964.JPG", "DSC00966.JPG", "DSC00969.JPG", "DSC00970.JPG", "DSC00972.JPG", "DSC00974.JPG","DSC00976.JPG", "DSC00978.JPG", "DSC00980.JPG", "DSC00983.JPG", "DSC00984.JPG", "DSC00987.JPG", "DSC00992.JPG", "DSC00994.JPG", "DSC00997.JPG", "DSC01000.JPG","DSC01004.JPG", "DSC01007.JPG", "DSC01062.JPG", "DSC01069.JPG", "DSC01080.JPG", "DSC01088.JPG", "DSC01098.JPG", "DSC01112.JPG", "DSC01116.JPG", "DSC01128.JPG"];
+        const fotos_todas = [...fotos_sesion, ...fotos_grupales];
+
+        let currentList = fotos_todas;
+        let currentIndex = 0;
+
+        // Renderizado inicial
+        const carrusel = document.getElementById('carrusel-especial');
+        fotos_especiales.forEach((src,i) => {
+            carrusel.innerHTML += `<div class="card-special"><img src="${src}" onclick="openViewer(${i}, 'especial')"></div>`;
+        });
+
+        function render(list,id) {
+            const container = document.getElementById(id);
+            if(container) {
+                list.forEach((foto,i) => {
+                    container.innerHTML += `<img src="${foto}" class="img-grid" onclick="openViewer(${i}, '${id}')">`;
+                });
+            }
+        }
+        render(fotos_todas, 'grid-galeria');
+        render(fotos_sesion, 'grid-sesion');
+        render(fotos_grupales, 'grid-grupales');
+
+        function scrollCarrusel(direction) {
+            const container = document.getElementById('carrusel-especial');
+            const cardWidth = container.querySelector('.card-special').offsetWidth + 20;
+            container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+        }
+
+        function switchTab(tab,el) {
+            document.querySelectorAll('.tab-content').forEach(t=> t.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l=> l.classList.remove('active'));
+            const target = document.getElementById('tab-' + tab);
+            if(target) target.classList.add('active');
+            el.classList.add('active');
+        }
+
+        // --- LÓGICA DEL VISOR ---
+        function openViewer(index, source) {
+            if(source === 'especial') currentList = fotos_especiales;
+            else if(source === 'grid-sesion') currentList = fotos_sesion;
+            else if(source === 'grid-grupales') currentList = fotos_grupales;
+            else currentList = fotos_todas;
+
+            currentIndex = index;
+            updateViewer();
+            document.getElementById('viewer').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeViewer() {
+            document.getElementById('viewer').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeViewerFromBackground(e) {
+            if (e.target.id === 'viewer' || e.target.id === 'viewer-container') closeViewer();
+        }
+
+        function updateViewer() {
+            const src = currentList[currentIndex];
+            document.getElementById('viewer-img').src = src;
+            document.getElementById('download-link').href = src;
+        }
+
+        function changeImage(step) {
+            currentIndex = (currentIndex + step + currentList.length) % currentList.length;
+            updateViewer();
+        }
+
+        // --- SWIPE PARA MÓVILES ---
+        let startX = 0;
+        const viewer = document.getElementById('viewer');
+        
+        viewer.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, false);
+        viewer.addEventListener('touchend', e => {
+            let endX = e.changedTouches[0].clientX;
+            if (startX - endX > 50) changeImage(1);  // Swipe izquierda
+            if (endX - startX > 50) changeImage(-1); // Swipe derecha
+        }, false);
+    </script>
+</body>
+</html>
