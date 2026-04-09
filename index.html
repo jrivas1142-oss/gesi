@@ -18,7 +18,7 @@
             background-position: center;
         }
 
-        /* --- CARRUSEL: DISEÑO ORIGINAL CON CENTRADO --- */
+        /* --- CARRUSEL INICIAL --- */
         .carrusel-container {
             display: flex;
             overflow-x: auto;
@@ -52,34 +52,44 @@
             border-radius: 6px; cursor: pointer; display: block;
         }
 
-        .img-grid {
-            width: 100%; height: 280px; object-fit: cover;
-            cursor: pointer; transition: opacity 0.3s ease;
+        /* --- MENÚ DE NAVEGACIÓN ADAPTABLE --- */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 15px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
         }
+        .nav-container::-webkit-scrollbar { display: none; }
 
-        /* --- NAVEGACIÓN --- */
         .nav-link {
-            font-size: 11px; font-weight: bold; letter-spacing: 0.1em;
-            text-transform: uppercase; color: #1a2e23; white-space: nowrap;
-            padding: 8px 14px; border-bottom: 2px solid transparent;
-            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #1a2e23;
+            white-space: nowrap; 
+            padding: 10px 18px;
             background: rgba(255, 255, 255, 0.9);
-            border-radius: 4px;
+            border-radius: 50px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
             transition: all 0.3s ease;
+            cursor: pointer;
+            flex-shrink: 0;
         }
         .nav-link.active { 
             color: white;
             background: #b66481;
-            border-bottom: 2px solid #d4af37; 
+            border-color: #d4af37;
         }
 
-        /* --- VISOR: CENTRADO, SWIPE Y BOTONES PEQUEÑOS --- */
+        /* --- VISOR: CENTRADO Y SWIPE --- */
         #viewer { 
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); 
             z-index: 100; flex-direction: column; align-items: center; justify-content: center;
-            cursor: pointer; touch-action: pan-y;
+            touch-action: pan-y;
         }
-
         #viewer-container {
             position: relative;
             display: flex;
@@ -88,52 +98,28 @@
             width: 100%;
             height: 75vh;
         }
-
         #viewer-img {
             max-width: 85vw;
             max-height: 70vh;
             border: 2px solid rgba(255,255,255,0.2);
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
             object-fit: contain;
-            cursor: default;
-            user-select: none;
         }
-
         .viewer-btn {
             background: rgba(255,255,255,0.1);
-            color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            transition: 0.3s;
-            z-index: 110;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            color: white; width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            position: absolute; top: 50%; transform: translateY(-50%); z-index: 110;
         }
-        .viewer-btn:hover { background: rgba(255,255,255,0.3); }
         .prev-btn { left: 10px; }
         .next-btn { right: 10px; }
 
         #download-link {
-            background: #b06d85;
-            color: white;
-            padding: 6px 16px;
-            border-radius: 99px;
-            font-size: 11px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 15px;
-            cursor: pointer;
-            transition: 0.3s;
+            background: #b06d85; color: white; padding: 8px 20px;
+            border-radius: 99px; font-size: 12px; font-weight: bold; margin-top: 15px;
         }
-        #download-link:hover { background: #d4af37; }
 
+        .video-item { margin-bottom: 2.5rem; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2); background: black;}
+        .img-grid { width: 100%; height: 280px; object-fit: cover; cursor: pointer; }
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -151,19 +137,19 @@
     </header>
 
     <section class="max-w-6xl mx-auto mb-8">
-        <h2 class="text-center font-aurora text-5xl text-[#b06d85] mb-2" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Momentos Especiales</h2>
+        <h2 class="text-center font-aurora text-5xl text-[#b06d85] mb-2">Momentos Especiales</h2>
         <div class="relative px-12">
-            <button onclick="scrollCarrusel(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg text-[#b06d85] border border-gray-100">❮</button>
+            <button onclick="scrollCarrusel(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg text-[#b06d85]">❮</button>
             <div id="carrusel-especial" class="carrusel-container"></div>
-            <button onclick="scrollCarrusel(1)" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg text-[#b06d85] border border-gray-100">❯</button>
+            <button onclick="scrollCarrusel(1)" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg text-[#b06d85]">❯</button>
         </div>
     </section>
 
-    <nav class="flex justify-center gap-2 mb-6 overflow-x-auto px-4">
+    <nav class="nav-container mb-8">
         <div class="nav-link active" onclick="switchTab('galeria', this)">Galería Completa</div>
         <div class="nav-link" onclick="switchTab('sesion', this)">Sesión de Fotos</div>
         <div class="nav-link" onclick="switchTab('grupales', this)">Fotos Grupales</div>
-        <div class="nav-link" onclick="switchTab('videos', this)">Videos</div>
+        <div class="nav-link" onclick="switchTab('videos', this)">Videos de la Fiesta</div>
     </nav>
 
     <main id="tab-galeria" class="tab-content active">
@@ -185,15 +171,21 @@
     </main>
 
     <main id="tab-videos" class="tab-content">
-        <section class="max-w-[800px] mx-auto px-6">
-            <div class="aspect-video bg-black rounded shadow-2xl overflow-hidden mb-6">
-                <video class="w-full h-full" controls>
-                    <source src="Video Project.mp4" type="video/mp4">
-                    <source src="WhatsApp Video 2026-04-08 at 16.24.12.mp4" type="video/mp4">
-                    <source src="WhatsApp Video 2026-04-08 at 16.41.22.mp4" type="video/mp4">
-                    <source src="WhatsApp Video 2026-04-08 at 16 (online-video-cutter.com).mp4" type="video/mp4">
-                    Videos de la Fiesta
-                </video>
+        <section class="max-w-[800px] mx-auto px-4 flex flex-col">
+            <div class="video-item aspect-video">
+                <video class="w-full h-full" controls><source src="Video Project.mp4" type="video/mp4"></video>
+            </div>
+            <div class="video-item aspect-video">
+                <video class="w-full h-full" controls><source src="WhatsApp Video 2026-04-08 at 16.24.12.mp4" type="video/mp4"></video>
+            </div>
+            <div class="video-item aspect-video">
+                <video class="w-full h-full" controls><source src="WhatsApp Video 2026-04-08 at 16.41.22.mp4" type="video/mp4"></video>
+            </div>
+            <div class="video-item aspect-video">
+                <video class="w-full h-full" controls><source src="WhatsApp Video 2026-04-08 at 17.12.35.mp4" type="video/mp4"></video>
+            </div>
+            <div class="video-item aspect-video">
+                <video class="w-full h-full" controls><source src="WhatsApp Video 2026-04-08 at 16 (online-video-cutter.com).mp4" type="video/mp4"></video>
             </div>
         </section>
     </main>
@@ -209,29 +201,35 @@
     </div>
 
     <script>
-        // MANTENEMOS TUS LISTAS DE FOTOS INTACTAS
+        // LISTAS DE FOTOS
         const fotos_especiales = ["Gemini_Generated_Image_aq2yabaq2yabaq2y.png", "Gemini_Generated_Image_iuuzpxiuuzpxiuuz.png", "Imagen2.jpg", "Imagen3.jpg", "Imagen5.jpg", "Imagen6.jpg"];
-        const fotos_sesion = ["DSC00369.JPG","Gemini_Generated_Image_aq2yabaq2yabaq2y.png","Gemini_Generated_Image_iuuzpxiuuzpxiuuz.png","Imagen2.jpg","Imagen3.jpg","Imagen5.jpg","Imagen6.jpg","Imagen7.jpg","DSC00699.JPG","DSC00710.JPG", "DSC00866.JPG", "DSC01009.JPG", "DSC01011.JPG", "DSC01015.JPG", "DSC01016.JPG","DSC01016.JPG","DSC01020.JPG", "DSC01038.JPG","DSC01053.JPG","DSC01065.JPG","DSC01140.JPG","DSC01143.JPG","DSC01144.JPG"];
+        const fotos_sesion = ["DSC00369.JPG","Gemini_Generated_Image_aq2yabaq2yabaq2y.png","Gemini_Generated_Image_iuuzpxiuuzpxiuuz.png","Imagen2.jpg","Imagen3.jpg","Imagen5.jpg","Imagen6.jpg","Imagen7.jpg","DSC00699.JPG","DSC00710.JPG", "DSC00866.JPG", "DSC01009.JPG", "DSC01011.JPG", "DSC01015.JPG", "DSC01016.JPG","DSC01020.JPG", "DSC01038.JPG","DSC01053.JPG","DSC01065.JPG","DSC01140.JPG","DSC01143.JPG","DSC01144.JPG"];
         const fotos_grupales = ["DSC01153.JPG","DSC00763.JPG","DSC00766.JPG","DSC00767.JPG","DSC00769.JPG","DSC00774.JPG","DSC00780.JPG","DSC00792.JPG","DSC00799.JPG","DSC00801.JPG","DSC00802.JPG", "DSC00804.JPG", "DSC00818.JPG", "DSC00824.JPG", "DSC00826.JPG", "DSC00829.JPG", "DSC00833.JPG", "DSC00835.JPG","DSC00836.JPG","DSC00845.JPG","DSC00851.JPG","DSC00853.JPG","DSC00863.JPG","DSC00867.JPG","DSC00873.JPG","DSC00877.JPG","DSC00879.JPG","DSC00881.JPG", "DSC00886.JPG", "DSC00892.JPG", "DSC00897.JPG", "DSC00900.JPG", "DSC00903.JPG", "DSC00906.JPG", "DSC00909.JPG", "DSC00913.JPG", "DSC00914.JPG","DSC00917.JPG", "DSC00919.JPG", "DSC00922.JPG", "DSC00932.JPG", "DSC00937.JPG", "DSC00940.JPG", "DSC00943.JPG", "DSC00945.JPG", "DSC00948.JPG", "DSC00951.JPG", "DSC00952.JPG", "DSC00954.JPG", "DSC00958.JPG", "DSC00962.JPG", "DSC00964.JPG", "DSC00966.JPG", "DSC00969.JPG", "DSC00970.JPG", "DSC00972.JPG", "DSC00974.JPG","DSC00976.JPG", "DSC00978.JPG", "DSC00980.JPG", "DSC00983.JPG", "DSC00984.JPG", "DSC00987.JPG", "DSC00992.JPG", "DSC00994.JPG", "DSC00997.JPG", "DSC01000.JPG","DSC01004.JPG", "DSC01007.JPG", "DSC01062.JPG", "DSC01069.JPG", "DSC01080.JPG", "DSC01088.JPG", "DSC01098.JPG", "DSC01112.JPG", "DSC01116.JPG", "DSC01128.JPG"];
         const fotos_todas = [...fotos_sesion, ...fotos_grupales];
 
         let currentList = fotos_todas;
         let currentIndex = 0;
 
-        // Renderizado inicial
+        // Renderizado de carrusel especial
         const carrusel = document.getElementById('carrusel-especial');
-        fotos_especiales.forEach((src,i) => {
+        fotos_especiales.forEach((src, i) => {
             carrusel.innerHTML += `<div class="card-special"><img src="${src}" onclick="openViewer(${i}, 'especial')"></div>`;
         });
 
-        function render(list,id) {
+        function render(list, id) {
             const container = document.getElementById(id);
             if(container) {
-                list.forEach((foto,i) => {
-                    container.innerHTML += `<img src="${foto}" class="img-grid" onclick="openViewer(${i}, '${id}')">`;
+                list.forEach((foto, i) => {
+                    const img = document.createElement('img');
+                    img.src = foto;
+                    img.className = 'img-grid';
+                    img.loading = 'lazy';
+                    img.onclick = () => openViewer(i, id);
+                    container.appendChild(img);
                 });
             }
         }
+
         render(fotos_todas, 'grid-galeria');
         render(fotos_sesion, 'grid-sesion');
         render(fotos_grupales, 'grid-grupales');
@@ -242,21 +240,18 @@
             container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
         }
 
-        function switchTab(tab,el) {
-            document.querySelectorAll('.tab-content').forEach(t=> t.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(l=> l.classList.remove('active'));
-            const target = document.getElementById('tab-' + tab);
-            if(target) target.classList.add('active');
+        function switchTab(tab, el) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
             el.classList.add('active');
         }
 
-        // --- LÓGICA DEL VISOR ---
         function openViewer(index, source) {
             if(source === 'especial') currentList = fotos_especiales;
             else if(source === 'grid-sesion') currentList = fotos_sesion;
             else if(source === 'grid-grupales') currentList = fotos_grupales;
             else currentList = fotos_todas;
-
             currentIndex = index;
             updateViewer();
             document.getElementById('viewer').style.display = 'flex';
@@ -283,15 +278,13 @@
             updateViewer();
         }
 
-        // --- SWIPE PARA MÓVILES ---
         let startX = 0;
         const viewer = document.getElementById('viewer');
-        
         viewer.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, false);
         viewer.addEventListener('touchend', e => {
             let endX = e.changedTouches[0].clientX;
-            if (startX - endX > 50) changeImage(1);  // Swipe izquierda
-            if (endX - startX > 50) changeImage(-1); // Swipe derecha
+            if (startX - endX > 50) changeImage(1);
+            if (endX - startX > 50) changeImage(-1);
         }, false);
     </script>
 </body>
