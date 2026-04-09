@@ -18,7 +18,7 @@
             background-position: center;
         }
 
-        /* --- CARRUSEL INICIAL --- */
+        /* --- CARRUSEL ORIGINAL --- */
         .carrusel-container {
             display: flex;
             overflow-x: auto;
@@ -52,14 +52,13 @@
             border-radius: 6px; cursor: pointer; display: block;
         }
 
-        /* --- MENÚ DE NAVEGACIÓN ADAPTABLE --- */
+        /* --- NAVEGACIÓN --- */
         .nav-container {
             display: flex;
             justify-content: center;
             gap: 10px;
             padding: 10px 15px;
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
         }
         .nav-container::-webkit-scrollbar { display: none; }
@@ -84,45 +83,38 @@
             border-color: #d4af37;
         }
 
-        /* --- VISOR: CENTRADO Y SWIPE --- */
-        #viewer { 
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); 
-            z-index: 100; flex-direction: column; align-items: center; justify-content: center;
-            touch-action: pan-y;
-        }
-        #viewer-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 75vh;
-        }
-        #viewer-img {
-            max-width: 85vw;
-            max-height: 70vh;
-            border: 2px solid rgba(255,255,255,0.2);
-            object-fit: contain;
-        }
-        .viewer-btn {
-            background: rgba(255,255,255,0.1);
-            color: white; width: 40px; height: 40px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            position: absolute; top: 50%; transform: translateY(-50%); z-index: 110;
-        }
-        .prev-btn { left: 10px; }
-        .next-btn { right: 10px; }
-
-        #download-link {
-            background: #b06d85; color: white; padding: 8px 20px;
-            border-radius: 99px; font-size: 12px; font-weight: bold; margin-top: 15px;
+        /* --- VIDEOS Y BOTONES --- */
+        .video-wrapper { margin-bottom: 3rem; text-align: center; }
+        .video-item { border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2); background: black;}
+        
+        .btn-descarga {
+            display: inline-block;
+            margin-top: 15px;
+            background: #b06d85;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 99px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
         }
 
-        .video-item { margin-bottom: 2.5rem; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2); background: black;}
         .img-grid { width: 100%; height: 280px; object-fit: cover; cursor: pointer; }
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- VISOR --- */
+        #viewer { 
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); 
+            z-index: 100; flex-direction: column; align-items: center; justify-content: center;
+        }
+        #viewer-img {
+            max-width: 85vw;
+            max-height: 70vh;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body class="font-body min-h-screen text-[#1a2e23] pb-10">
@@ -172,78 +164,65 @@
 
     <main id="tab-videos" class="tab-content">
         <section class="max-w-[800px] mx-auto px-4 flex flex-col">
-            <div class="video-item aspect-video">
-                <video class="w-full h-full" controls><source src="Video Project.mp4" type="video/mp4"></video>
+            <div class="video-wrapper">
+                <div class="video-item aspect-video"><video class="w-full h-full" controls><source src="Video Project.mp4" type="video/mp4"></video></div>
+                <a href="Video Project.mp4" download class="btn-descarga">Descargar Video</a>
             </div>
-            <div class="video-item aspect-video">
-                <video class="w-full h-full" controls><source src="WhatsApp Video 2026-04-08 at 16.24.12.mp4" type="video/mp4"></video>
+            <div class="video-wrapper">
+                <div class="video-item aspect-video"><video class="w-full h-full" controls><source src="WhatsApp Video 2026-04-08 at 16.24.12.mp4" type="video/mp4"></video></div>
+                <a href="WhatsApp Video 2026-04-08 at 16.24.12.mp4" download class="btn-descarga">Descargar Video</a>
             </div>
-            <div class="video-item aspect-video">
-                <video class="w-full h-full" controls><source src="WhatsApp Video 2026-04-08 at 16.41.22.mp4" type="video/mp4"></video>
+            <div class="video-wrapper">
+                <div class="video-item aspect-video"><video class="w-full h-full" controls><source src="WhatsApp Video 2026-04-08 at 17.12.35.mp4" type="video/mp4"></video></div>
+                <a href="WhatsApp Video 2026-04-08 at 17.12.35.mp4" download class="btn-descarga">Descargar Video</a>
             </div>
-            <div class="video-item aspect-video">
-                <video class="w-full h-full" controls><source src="WhatsApp Video 2026-04-08 at 17.12.35.mp4" type="video/mp4"></video>
-            </div>
-            <div class="video-item aspect-video">
-                <video class="w-full h-full" controls><source src="WhatsApp Video 2026-04-08 at 16 (online-video-cutter.com).mp4" type="video/mp4"></video>
+            <div class="video-wrapper">
+                <div class="video-item aspect-video"><video class="w-full h-full" controls><source src="WhatsApp Video 2026-04-08 at 16 (online-video-cutter.com).mp4" type="video/mp4"></video></div>
+                <a href="WhatsApp Video 2026-04-08 at 16 (online-video-cutter.com).mp4" download class="btn-descarga">Descargar Video</a>
             </div>
         </section>
     </main>
 
     <div id="viewer" onclick="closeViewerFromBackground(event)">
-        <button onclick="closeViewer()" class="absolute top-4 right-6 text-white text-4xl z-[120]">&times;</button>
-        <div id="viewer-container">
-            <button onclick="changeImage(-1); event.stopPropagation();" class="viewer-btn prev-btn">❮</button>
-            <img id="viewer-img" src="" onclick="event.stopPropagation()">
-            <button onclick="changeImage(1); event.stopPropagation();" class="viewer-btn next-btn">❯</button>
+        <button onclick="closeViewer()" class="absolute top-4 right-6 text-white text-4xl">&times;</button>
+        <div class="relative flex items-center justify-center w-full h-[75vh]">
+            <button onclick="changeImage(-1); event.stopPropagation();" class="absolute left-4 text-white text-3xl">❮</button>
+            <img id="viewer-img" src="">
+            <button onclick="changeImage(1); event.stopPropagation();" class="absolute right-4 text-white text-3xl">❯</button>
         </div>
-        <a id="download-link" href="#" download onclick="event.stopPropagation();">Descargar Foto</a>
+        <a id="download-link" href="#" download class="btn-descarga">Descargar Foto</a>
     </div>
 
     <script>
-        // LISTAS DE FOTOS
         const fotos_especiales = ["Gemini_Generated_Image_aq2yabaq2yabaq2y.png", "Gemini_Generated_Image_iuuzpxiuuzpxiuuz.png", "Imagen2.jpg", "Imagen3.jpg", "Imagen5.jpg", "Imagen6.jpg"];
-        const fotos_sesion = ["DSC00369.jpg","Gemini_Generated_Image_aq2yabaq2yabaq2y.png","Gemini_Generated_Image_iuuzpxiuuzpxiuuz.png","Imagen2.jpg","Imagen3.jpg","Imagen5.jpg","Imagen6.jpg","Imagen7.jpg","DSC00699.jpg","DSC00710.jpg", "DSC00866.jpg", "DSC01009.jpg", "DSC01011.jpg", "DSC01015.jpg", "DSC01016.jpg","DSC01020.jpg", "DSC01038.jpg","DSC01053.jpg","DSC01065.jpg","DSC01140.jpg","DSC01143.jpg","DSC01144.jpg"];
-        const fotos_grupales = ["DSC01153.jpg","DSC00763.jpg","DSC00766.jpg","DSC00767.jpg","DSC00769.jpg","DSC00774.jpg","DSC00780.jpg","DSC00792.jpg","DSC00799.jpg","DSC00801.jpg","DSC00802.jpg", "DSC00804.jpg", "DSC00818.jpg", "DSC00824.jpg", "DSC00826.jpg", "DSC00829.jpg", "DSC00833.jpg", "DSC00835.jpg","DSC00836.jpg","DSC00845.jpg","DSC00851.jpg","DSC00853.jpg","DS₀₀863.jpg","DS₀₀867.jpg","DS₀₀873.jpg","DS₀₀877.jpg",
-        "DSC00879.jpg","DSC00881.jpg", "DSC00886.jpg", "DSC00892.jpg", "DSC00897.jpg", "DSC00900.jpg", "DSC00903.jpg", "DSC00906.jpg", "DSC00909.jpg", "DSC00913.jpg", "DSC00914.jpg","DSC00917.jpg", "DSC00919.jpg", "DSC00922.jpg", "DSC00932.jpg", "DSC00937.jpg", "DSC00940.jpg", "DSC00943.jpg", "DSC00945.jpg", "DSC00948.jpg", "DSC00951.jpg", "DSC00952.jpg", "DSC00954.jpg", "DSC00958.jpg", "DSC00962.jpg", "DSC00964.jpg", 
-        "DSC00966.jpg", "DSC00969.jpg", "DSC00970.jpg", "DSC00972.jpg", "DSC00974.jpg","DSC00976.jpg", "DSC00978.jpg", "DSC00980.jpg", "DSC00983.jpg", "DSC00984.jpg", "DSC00987.jpg", "DSC00992.jpg", "DSC00994.jpg", "DSC00997.jpg", "DSC01000.jpg","DSC01004.jpg", "DSC01007.jpg", "DSC01062.jpg", "DSC01069.jpg", "DSC01080.jpg", "DSC01088.jpg", "DSC01098.jpg", "DSC01112.jpg", "DSC01116.jpg", "DSC01128.jpg"];
+        const fotos_sesion = ["DSC00369.JPG","Gemini_Generated_Image_aq2yabaq2yabaq2y.png","Gemini_Generated_Image_iuuzpxiuuzpxiuuz.png","Imagen2.jpg","Imagen3.jpg","Imagen5.jpg","Imagen6.jpg","Imagen7.jpg","DSC00699.JPG","DSC00710.JPG", "DSC00866.JPG", "DSC01009.JPG", "DSC01011.JPG", "DSC01015.JPG", "DSC01016.JPG","DSC01020.JPG", "DSC01038.JPG","DSC01053.JPG","DSC01065.JPG","DSC01140.JPG","DSC01143.JPG","DSC01144.JPG"];
+        
+        // CORRECCIÓN: .jpg en minúsculas
+        const fotos_grupales = ["DSC01153.jpg","DSC00763.jpg","DSC00766.jpg","DSC00767.jpg","DSC00769.jpg","DSC00774.jpg","DSC00780.jpg","DSC00792.jpg","DSC00799.jpg","DSC00801.jpg","DSC00802.jpg", "DSC00804.jpg", "DSC00818.jpg", "DSC00824.jpg", "DSC00826.jpg", "DSC00829.jpg", "DSC00833.jpg", "DSC00835.jpg","DSC00836.jpg","DSC00845.jpg","DSC00851.jpg","DSC00853.jpg","DSC00863.jpg","DSC00867.jpg","DSC00873.jpg","DSC00877.jpg","DSC00879.jpg","DSC00881.jpg", "DSC00886.jpg", "DSC00892.jpg", "DSC00897.jpg", "DSC00900.jpg", "DSC00903.jpg", "DSC00906.jpg", "DSC00909.jpg", "DSC00913.jpg", "DSC00914.jpg","DSC00917.jpg", "DSC00919.jpg", "DSC00922.jpg", "DSC00932.jpg", "DSC00937.jpg", "DSC00940.jpg", "DSC00943.jpg", "DSC00945.jpg", "DSC00948.jpg", "DSC00951.jpg", "DSC00952.jpg", "DSC00954.jpg", "DSC00958.jpg", "DSC00962.jpg", "DSC00964.jpg", "DSC00966.jpg", "DSC00969.jpg", "DSC00970.jpg", "DSC00972.jpg", "DSC00974.jpg","DSC00976.jpg", "DSC00978.jpg", "DSC00980.jpg", "DSC00983.jpg", "DSC00984.jpg", "DSC00987.jpg", "DSC00992.jpg", "DSC00994.jpg", "DSC00997.jpg", "DSC01000.jpg","DSC01004.jpg", "DSC01007.jpg", "DSC01062.jpg", "DSC01069.jpg", "DSC01080.jpg", "DSC01088.jpg", "DSC01098.jpg", "DSC01112.jpg", "DSC01116.jpg", "DSC01128.jpg"];
+        
         const fotos_todas = [...fotos_sesion, ...fotos_grupales];
         let currentList = fotos_todas;
         let currentIndex = 0;
 
-        // Renderizado de carrusel especial
+        // Renderizado
         const carrusel = document.getElementById('carrusel-especial');
-        fotos_especiales.forEach((src, i) => {
-            carrusel.innerHTML += `<div class="card-special"><img src="${src}" onclick="openViewer(${i}, 'especial')"></div>`;
-        });
+        fotos_especiales.forEach((src, i) => carrusel.innerHTML += `<div class="card-special"><img src="${src}" onclick="openViewer(${i}, 'especial')"></div>`);
 
         function render(list, id) {
             const container = document.getElementById(id);
-            if(container) {
-                list.forEach((foto, i) => {
-                    const img = document.createElement('img');
-                    img.src = foto;
-                    img.className = 'img-grid';
-                    img.loading = 'lazy';
-                    img.onclick = () => openViewer(i, id);
-                    container.appendChild(img);
-                });
-            }
+            if(container) list.forEach((foto, i) => container.innerHTML += `<img src="${foto}" class="img-grid" loading="lazy" onclick="openViewer(${i}, '${id}')">`);
         }
-
         render(fotos_todas, 'grid-galeria');
         render(fotos_sesion, 'grid-sesion');
         render(fotos_grupales, 'grid-grupales');
 
-        function scrollCarrusel(direction) {
-            const container = document.getElementById('carrusel-especial');
-            const cardWidth = container.querySelector('.card-special').offsetWidth + 20;
-            container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
-        }
+        function scrollCarrusel(d) { document.getElementById('carrusel-especial').scrollBy({ left: d * 280, behavior: 'smooth' }); }
 
+        // CORRECCIÓN: Detener videos al cambiar pestaña
         function switchTab(tab, el) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('video').forEach(v => { v.pause(); v.currentTime = 0; });
             document.getElementById('tab-' + tab).classList.add('active');
             el.classList.add('active');
         }
@@ -256,16 +235,6 @@
             currentIndex = index;
             updateViewer();
             document.getElementById('viewer').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeViewer() {
-            document.getElementById('viewer').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        function closeViewerFromBackground(e) {
-            if (e.target.id === 'viewer' || e.target.id === 'viewer-container') closeViewer();
         }
 
         function updateViewer() {
@@ -274,19 +243,9 @@
             document.getElementById('download-link').href = src;
         }
 
-        function changeImage(step) {
-            currentIndex = (currentIndex + step + currentList.length) % currentList.length;
-            updateViewer();
-        }
-
-        let startX = 0;
-        const viewer = document.getElementById('viewer');
-        viewer.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, false);
-        viewer.addEventListener('touchend', e => {
-            let endX = e.changedTouches[0].clientX;
-            if (startX - endX > 50) changeImage(1);
-            if (endX - startX > 50) changeImage(-1);
-        }, false);
+        function closeViewer() { document.getElementById('viewer').style.display = 'none'; }
+        function changeImage(s) { currentIndex = (currentIndex + s + currentList.length) % currentList.length; updateViewer(); }
+        function closeViewerFromBackground(e) { if(e.target.id === 'viewer') closeViewer(); }
     </script>
 </body>
 </html>
